@@ -1,10 +1,11 @@
 
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity,BackHandler} from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, BackHandler } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { Container, Card, CardItem, Content, Header, Form, Input, Item, Label, Button } from 'native-base';
-import { KeyboardAvoidingView } from 'react-native';
+import { Input, Item, Label } from 'native-base';
 import { w, h, totalSize } from '../../api/Dimensions';
+import DatePicker from '../../components/DatePicker';
+import moment from 'moment';
 
 import {
   createStackNavigator
@@ -12,7 +13,19 @@ import {
 
 
 class Profile extends Component {
-  
+
+  constructor() {
+    super()
+    this.state = {
+      isDatePickerVisible: false,
+      chosenDate: '',
+      chosenStartTime: '',
+      chosenEndTime: '',
+      pickermode: '',
+    }
+  }
+
+
   componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
   }
@@ -26,40 +39,88 @@ class Profile extends Component {
     return true;
   };
 
+  handlePicker = date => {
+
+    this.setState({
+      isDatePickerVisible: false,
+      chosenStartTime: moment(date).format('hh:mm')
+    })
+
+  }
+
+  handleStartTimePicker = date => {
+    this.setState({
+      isDatePickerVisible: false,
+      chosenEndTime: moment(date).format('hh:mm')
+    })
+  }
+
+  handleEndTimePicker = date => {
+    this.setState
+    ({
+      isDatePickerVisible: false,
+      chosenDate: moment(date).format('DD/MM/YYYY')
+    })
+
+  }
+
+  confirmButtonLogic=()=>{
+    if(this.state.pickermode="date"){
+      
+      this.handlePicker
+      
+    }else if(this.state.pickermode="time"){
+
+      this.handleStartTimePicker
+    }
+  }
+
+
+  hidePicker = () => {
+    this.setState({ isDatePickerVisible: false })
+  }
+
+
   render() {
     return (
       <View style={styles.keyboard}>
         <View>
           <View style={styles.inputRowstyle1} >
 
-            <View style={styles.floatingLabelStyle2}>
+            <View style={styles.floatingLabelStyle2} >
               <Item floatingLabel >
-                <Label style={{ color: "white" }}>Date</Label >
+                <Label style={{ color: "white" }} >Date</Label >
                 <Input
+                  onTouchStart={()=>this.setState({ isDatePickerVisible: true, pickermode: "date"})}
                   autoCorrect={false}
                   autoCapitalize="none"
                   style={{ color: "white" }}
-                />
+                  value={this.state.chosenDate} />
               </Item>
             </View>
 
             <View style={styles.floatingLabelStyle} >
               <Item floatingLabel style={{ flex: 1 }}  >
-                <Label style={{ color: "white" }}>Hrs</Label>
+                <Label style={{ color: "white" }}>Start Time</Label>
                 <Input
+                  onTouchStart={()=>this.setState({ isDatePickerVisible: true, pickermode: "time"})}
                   autoCorrect={false}
                   autoCapitalize="none"
                   style={{ color: "white" }}
+                  value={this.state.chosenStartTime}
                 />
               </Item>
             </View>
+
             <View style={styles.floatingLabelStyle}  >
               <Item floatingLabel style={{ flex: 1 }} >
-                <Label style={{ color: "white" }}>Min</Label>
+                <Label style={{ color: "white" }}>End Time</Label>
                 <Input
+                  onTouchStart={()=>this.setState({ isDatePickerVisible: true, pickermode: "time" })}
                   autoCorrect={false}
                   autoCapitalize="none"
                   style={{ color: "white" }}
+                  value={this.state.chosenEndTime}
                 />
               </Item>
             </View>
@@ -110,7 +171,6 @@ class Profile extends Component {
           </View>
         </View>
 
-
         <View>
 
           <TouchableOpacity
@@ -120,6 +180,13 @@ class Profile extends Component {
           </TouchableOpacity>
 
         </View>
+
+        <DatePicker
+          onConfirm={()=>this.confirmButtonLogic}
+          isVisible={()=>this.state.isDatePickerVisible}
+          mode={()=>this.state.pickermode}
+          onCancel={()=>this.hidePicker}
+        />
       </View>
     );
   }
@@ -182,3 +249,6 @@ const styles = StyleSheet.create({
 });
 
 export default Time
+
+
+//moment(date).format('MMMM, Do YYYY HH:mm')

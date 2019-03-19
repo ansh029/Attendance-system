@@ -3,13 +3,8 @@ import { View, Text, StyleSheet, Button } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import {
-  createSwitchNavigator,
-  createAppContainer,
-  createDrawerNavigator,
-  createBottomTabNavigator,
   createStackNavigator
 } from 'react-navigation';
-
 
 
 class Profile extends Component {
