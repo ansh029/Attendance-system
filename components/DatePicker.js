@@ -12,10 +12,10 @@ export default class DatePicker extends Component {
 
         <View>
          <DateTimePicker
-          isVisible={this.props.isVisible}
-          mode={this.props.mode}
-          onConfirm={this.props.onConfirm}
-          onCancel={this.props.onCancel}
+          isVisible={this.props.isDatePickerVisible}
+          mode={this.props.pickermode}
+          onConfirm={this.props.onConfirming}
+          onCancel={this.props.onCancelling}
           />
         </View>
 

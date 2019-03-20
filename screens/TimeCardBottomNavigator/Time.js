@@ -16,15 +16,17 @@ class Profile extends Component {
 
   constructor() {
     super()
+
     this.state = {
       isDatePickerVisible: false,
       chosenDate: '',
       chosenStartTime: '',
       chosenEndTime: '',
-      pickermode: '',
+      pickermode: "date",
+      selectTimePicker: 0
     }
-  }
 
+  }
 
   componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
@@ -43,43 +45,55 @@ class Profile extends Component {
 
     this.setState({
       isDatePickerVisible: false,
-      chosenStartTime: moment(date).format('hh:mm')
+      chosenDate: moment(date).format('DD/MM/YYYY'),
+      pickermode: "date"
     })
 
   }
 
-  handleStartTimePicker = date => {
+  handleSecondPicker = date => {
     this.setState({
       isDatePickerVisible: false,
-      chosenEndTime: moment(date).format('hh:mm')
+      chosenStartTime: moment(date).format('HH.mm'),
+      pickermode: "time"
     })
   }
 
-  handleEndTimePicker = date => {
-    this.setState
-    ({
+  handleThirdPicker = date => {
+    this.setState({
       isDatePickerVisible: false,
-      chosenDate: moment(date).format('DD/MM/YYYY')
+      chosenEndTime: moment(date).format('HH.mm'),
+      pickermode: "time"
     })
-
   }
 
-  confirmButtonLogic=()=>{
-    if(this.state.pickermode="date"){
-      
-      this.handlePicker
-      
-    }else if(this.state.pickermode="time"){
 
-      this.handleStartTimePicker
+
+  callingpicker = date => {
+    if (this.state.pickermode == "date") {
+      this.handlePicker(date);
+    } else if (this.state.pickermode == "time" && this.state.selectTimePicker == 1) {
+      this.handleSecondPicker(date);
+    } else if (this.state.pickermode == "time" && this.state.selectTimePicker == 2) {
+      this.handleThirdPicker(date);
     }
   }
 
-
   hidePicker = () => {
-    this.setState({ isDatePickerVisible: false })
+    this.setState({ isDatePickerVisible: false, pickermode: this.state.pickermode })
   }
 
+  showPicker = () => {
+    this.setState({ isDatePickerVisible: true, pickermode: "date" })
+  }
+
+  showSecondPicker = () => {
+    this.setState({ isDatePickerVisible: true, pickermode: "time", selectTimePicker: 1 })
+  }
+
+  showThirdPicker = () => {
+    this.setState({ isDatePickerVisible: true, pickermode: "time", selectTimePicker: 2 })
+  }
 
   render() {
     return (
@@ -91,7 +105,7 @@ class Profile extends Component {
               <Item floatingLabel >
                 <Label style={{ color: "white" }} >Date</Label >
                 <Input
-                  onTouchStart={()=>this.setState({ isDatePickerVisible: true, pickermode: "date"})}
+                  onTouchStart={this.showPicker}
                   autoCorrect={false}
                   autoCapitalize="none"
                   style={{ color: "white" }}
@@ -103,7 +117,7 @@ class Profile extends Component {
               <Item floatingLabel style={{ flex: 1 }}  >
                 <Label style={{ color: "white" }}>Start Time</Label>
                 <Input
-                  onTouchStart={()=>this.setState({ isDatePickerVisible: true, pickermode: "time"})}
+                  onTouchStart={this.showSecondPicker}
                   autoCorrect={false}
                   autoCapitalize="none"
                   style={{ color: "white" }}
@@ -116,7 +130,7 @@ class Profile extends Component {
               <Item floatingLabel style={{ flex: 1 }} >
                 <Label style={{ color: "white" }}>End Time</Label>
                 <Input
-                  onTouchStart={()=>this.setState({ isDatePickerVisible: true, pickermode: "time" })}
+                  onTouchStart={this.showThirdPicker}
                   autoCorrect={false}
                   autoCapitalize="none"
                   style={{ color: "white" }}
@@ -147,7 +161,6 @@ class Profile extends Component {
                   autoCorrect={false}
                   autoCapitalize="none"
                   style={{ color: "white" }}
-
                 />
               </Item>
             </View>
@@ -182,10 +195,10 @@ class Profile extends Component {
         </View>
 
         <DatePicker
-          onConfirm={()=>this.confirmButtonLogic}
-          isVisible={()=>this.state.isDatePickerVisible}
-          mode={()=>this.state.pickermode}
-          onCancel={()=>this.hidePicker}
+          onConfirming={this.callingpicker}
+          isDatePickerVisible={this.state.isDatePickerVisible}
+          pickermode={this.state.pickermode}
+          onCancelling={this.hidePicker}
         />
       </View>
     );
