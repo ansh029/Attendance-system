@@ -25,6 +25,7 @@ import Register from './screens/Register';
 import ForgetPassword from './screens/ForgetPassword';
 import Options from './screens/Options';
 import TimeCardBottomNavigator from './screens/TimeCardBottomNavigator';
+import LeaveBottomNavigator from './screens/LeaveBottomNavigator';
 
 
 class App extends Component {
@@ -57,7 +58,8 @@ const AppSwitchNavigator = createSwitchNavigator({
   Register: { screen: Register },
   ForgetPassword: { screen: ForgetPassword },
   Options: { screen: Options },
-  TimeCardBottomNavigator: { screen: TimeCardBottomNavigator }
+  TimeCardBottomNavigator: { screen: TimeCardBottomNavigator },
+  LeaveBottomNavigator: { screen: LeaveBottomNavigator }
 },
   {
     initialRouteName: 'Login',

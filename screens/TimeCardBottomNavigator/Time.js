@@ -12,11 +12,11 @@ import {
 } from 'react-navigation';
 
 
-class Profile extends Component {
+class TimeCard extends Component {
 
   constructor() {
     super()
-
+    
     this.state = {
       isDatePickerVisible: false,
       chosenDate: '',
@@ -52,24 +52,29 @@ class Profile extends Component {
   }
 
   handleSecondPicker = date => {
+
     this.setState({
       isDatePickerVisible: false,
       chosenStartTime: moment(date).format('HH.mm'),
       pickermode: "time"
     })
+
   }
 
   handleThirdPicker = date => {
+
     this.setState({
       isDatePickerVisible: false,
       chosenEndTime: moment(date).format('HH.mm'),
       pickermode: "time"
     })
+
   }
 
 
 
   callingpicker = date => {
+
     if (this.state.pickermode == "date") {
       this.handlePicker(date);
     } else if (this.state.pickermode == "time" && this.state.selectTimePicker == 1) {
@@ -77,6 +82,7 @@ class Profile extends Component {
     } else if (this.state.pickermode == "time" && this.state.selectTimePicker == 2) {
       this.handleThirdPicker(date);
     }
+
   }
 
   hidePicker = () => {
@@ -160,7 +166,7 @@ class Profile extends Component {
                 <Input
                   autoCorrect={false}
                   autoCapitalize="none"
-                  style={{ color: "white" }}
+                  style={{ color: "white"}}
                 />
               </Item>
             </View>
@@ -206,8 +212,9 @@ class Profile extends Component {
 }
 
 const Time = createStackNavigator({
-  Profile: {
-    screen: Profile,
+
+  ApplyTimeCard: {
+    screen: TimeCard,
     navigationOptions: ({ navigation }) => {
 
       return {
@@ -262,6 +269,3 @@ const styles = StyleSheet.create({
 });
 
 export default Time
-
-
-//moment(date).format('MMMM, Do YYYY HH:mm')

@@ -29,8 +29,9 @@ export default class Options extends Component {
                   onPress={() => this.props.navigation.navigate('TimeCardBottomNavigator')}>
                 <Text style={styles.text}>TimeCard</Text>
                 </TouchableOpacity>
-                <TouchableOpacity activeOpacity={0.5} style={styles.button}>
-                    <Text style={styles.text}>Leave</Text>
+                <TouchableOpacity activeOpacity={0.5} style={styles.button}
+                onPress={() => this.props.navigation.navigate('LeaveBottomNavigator')}>
+                <Text style={styles.text}>Leave</Text>
                 </TouchableOpacity>
             </View>
 
