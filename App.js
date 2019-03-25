@@ -16,7 +16,7 @@ import { w } from './api/Dimensions';
 
 import {
   createSwitchNavigator,
-  createAppContainer
+  createAppContainer,createStackNavigator
 } from 'react-navigation';
 
 

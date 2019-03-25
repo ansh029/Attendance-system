@@ -15,7 +15,7 @@ export default class Continue extends Component {
             activeOpacity={0.5}
             style={styles.button}>
             {this.props.isCreating
-            ? <ActivityIndicator size="large" style={styles.spinner} color='white' />
+            ? <ActivityIndicator size="large" style={styles.spinner} color='white'/>
             : <Text style={styles.text}>Continue</Text>}
           </TouchableOpacity>
         );

@@ -24,7 +24,6 @@ const Report = createStackNavigator({
       navigationOptions: ({ navigation }) => {
         
         return {
-          
           headerTitle: 'Report',
           headerLeft: (
             <Icon style={{ paddingLeft: 10 }}  name="md-menu" size={30} />
